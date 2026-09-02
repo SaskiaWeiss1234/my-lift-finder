@@ -18,3 +18,16 @@ export async function getElevatorsFromFasta() {
     const data = await response.json();
     return data;
 }
+
+export function reshapeElevator(facility) {
+    return {
+        elevatorID: facility.equipmentnumber,
+        longitude: facility.geocoordX,
+        latitude: facility.geocoordY,
+        state: facility.state,
+        stateExplanation: facility.stateExplanation,
+        description: facility.description,
+        stationNumber: facility.stationnumber,
+        lastSyncedAt: new Date(),
+        };
+}
