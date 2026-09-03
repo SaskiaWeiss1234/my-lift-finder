@@ -7,7 +7,10 @@ import Elevator from "./models/elevators.js";
 export async function syncElevators() {
     await dbConnect();
     const rawElevators = await getElevatorsFromFasta();
-    const reshaped = rawElevators.map(reshapeElevator);
+    const reshaped = rawElevators
+    .map(reshapeElevator)
+    .filter((e) => e.elevatorID != null); // Filter out elevators with null elevatorID
+
 
     for (const elevator of reshaped) {
         await Elevator.updateOne(

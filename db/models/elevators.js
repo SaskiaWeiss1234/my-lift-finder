@@ -17,7 +17,6 @@ const elevatorSchema = new Schema(
     },
     state: {
       type: String,
-        enum: ["ACTIVE", "INACTIVE", "UNKNOWN" ],
     },
     stateExplanation: {
       type: String,
