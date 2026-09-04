@@ -6,7 +6,7 @@ export async function getElevatorsFromFasta() {
         throw new Error("DB_CLIENT_ID or DB_API_KEY is not set in environment variables.");
     }
 
-    const url = "https://apis.deutschebahn.com/db-api-marketplace/apis/fasta/v2/facilities?type=ELEVATOR&area=6.920,50.915,6.990,50.965";
+    const url = "https://apis.deutschebahn.com/db-api-marketplace/apis/fasta/v2/facilities?type=ELEVATOR&area=6.722603,50.856027,7.232781,51.01&limit=1000"; // Adjust the area coordinates as needed
 
     const response = await fetch(url, {
         headers: {

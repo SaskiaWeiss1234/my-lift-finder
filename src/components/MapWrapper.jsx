@@ -7,6 +7,6 @@ const Map = dynamic(() => import("@/components/Map"), {
   loading: () => <p>Loading map...</p>
 });
 
-export default function MapWrapper() {
-    return <Map />;
+export default function MapWrapper({ elevators }) {
+    return <Map elevators={elevators} />;
 }
