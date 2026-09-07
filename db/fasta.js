@@ -28,7 +28,7 @@ export async function getElevatorsFromFasta() {
 
 export function reshapeElevator(facility) {
     return {
-        elevatorID: facility.equipmentnumber,
+        elevatorID: facility.equipmentnumber.toString(),
         longitude: facility.geocoordX,
         latitude: facility.geocoordY,
         state: facility.state,
@@ -36,5 +36,6 @@ export function reshapeElevator(facility) {
         description: facility.description,
         stationNumber: facility.stationnumber,
         lastSyncedAt: new Date(),
+        source: "DB",
         };
 }

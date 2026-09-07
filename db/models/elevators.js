@@ -5,7 +5,7 @@ const { Schema } = mongoose;
 const elevatorSchema = new Schema(
   {
     elevatorID: {
-      type: Number,
+      type: String,
       required: true,
       unique: true, 
     },
@@ -30,6 +30,9 @@ const elevatorSchema = new Schema(
     },
     lastSyncedAt: {
       type: Date, 
+    },
+    source: {
+      type: String, 
     },
   },
 
