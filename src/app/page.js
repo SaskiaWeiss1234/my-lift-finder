@@ -5,7 +5,8 @@ import Elevator from "@/db/models/elevators";
 
 export default async function HomePage() {
   await dbConnect();
-const elevators = await Elevator.find({}, { _id: 0}).lean().exec();  // Fetch all elevators from the database
+const raw = await Elevator.find({}, { _id: 0}).lean();
+const elevators = JSON.parse(JSON.stringify(raw));
 
   return (
     <main>
