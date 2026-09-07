@@ -1,6 +1,6 @@
-import dbConnect from "../../../../db/dbConnect";
-import Elevator from "../../../../db/models/elevators";
-import { syncElevators } from "../../../../db/syncElevators.js";
+import dbConnect from "@/db/dbConnect";
+import Elevator from "@/db/models/elevators";
+import { syncElevators } from "@/db/syncElevators";
 
 export async function GET() {
     try {
