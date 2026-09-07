@@ -4,10 +4,8 @@ import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
-// Fix for default marker icon issue in Leaflet
-import icon from "leaflet/dist/images/marker-icon.png";
-import iconShadow from "leaflet/dist/images/marker-shadow.png";
-import iconRetina from "leaflet/dist/images/marker-icon-2x.png";
+
+
 
 export function getColorByState(state) {
     if (state === "ACTIVE") {
@@ -38,13 +36,11 @@ function createIcon(state) {
 export default function Map({ elevators }) {
     return (
         <MapContainer 
-        center={[50.9413, 6.9583]}
+        center={[50.942519, 6.958543]}
         zoom={13}
-        maxBounds={[
-    [50.83, 6.70],   // south-west corner [lat, lng]
-    [51.02, 7.24],   // north-east corner [lat, lng]
-  ]}
-        style={{ height: "100vh", width: "100%" }}
+        className="h-full w-full rounded-xl"
+        maxBounds={[[50.83, 6.70], [51.02, 7.24],   
+  ]}     
         >
         <TileLayer
         attribution='&copy; OpenStreetMap contributors'

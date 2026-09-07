@@ -11,7 +11,7 @@ const raw = await Elevator.find({}, { _id: 0}).lean();
 const elevators = JSON.parse(JSON.stringify(raw));
 
   return (
-    <main>
+    <main className="h-screen  p-4">
       <MapWrapper elevators={elevators} />
     </main>
   );
