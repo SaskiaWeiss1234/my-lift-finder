@@ -20,8 +20,9 @@ function createIcon(state) {
     const color = getColorByState(state);
     return L.divIcon({
         className: "",
-    html:`<svg fill=${color} width="24px" height="24px" viewBox="0 0 0.72 0.72" 
-    xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="m0.38 0.683 -0.02 0.017 -0.02 -0.017C0.174 0.538 0.09 0.411 0.09 0.3c0 -0.158 0.123 -0.27 0.27 -0.27s0.27 0.112 0.27 0.27c0 0.111 -0.084 0.238 -0.25 0.383M0.15 0.3c0 0.085 0.069 0.193 0.21 0.32 0.141 -0.127 0.21 -0.234 0.21 -0.32 0 -0.123 -0.095 -0.21 -0.21 -0.21s-0.21 0.087 -0.21 0.21m0.21 -0.15a0.15 0.15 0 1 1 0 0.3 0.15 0.15 0 0 1 0 -0.3m0 0.06a0.09 0.09 0 1 0 0 0.18 0.09 0.09 0 0 0 0 -0.18"/>
+    html:`<svg width="24px" height="24px" viewBox="0 0 0.48 0.48" fill="none" 
+    xmlns="http://www.w3.org/2000/svg"><path clip-rule="evenodd" 
+    d="M0.06 0.18v0.009c0 0.043 0.015 0.084 0.041 0.118L0.24 0.48l0.139 -0.173A0.189 0.189 0 0 0 0.42 0.189V0.18A0.18 0.18 0 0 0 0.06 0.18m0.18 0.06a0.06 0.06 0 1 0 0 -0.12 0.06 0.06 0 0 0 0 0.12" fill=${color} fill-rule="evenodd"/>
     </svg>`,
     iconSize: [24, 24],
     iconAnchor: [12, 24],
