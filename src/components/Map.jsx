@@ -7,10 +7,13 @@ import "leaflet/dist/leaflet.css";
 // Fix for default marker icon issue in Leaflet
 import icon from "leaflet/dist/images/marker-icon.png";
 import iconShadow from "leaflet/dist/images/marker-shadow.png";
+import iconRetina from "leaflet/dist/images/marker-icon-2x.png";
+console.log("icon value:", icon);
 
 L.Icon.Default.mergeOptions({
-    iconUrl: icon.src,
-    shadowUrl: iconShadow.src,
+     iconRetinaUrl: iconRetina,
+    iconUrl: icon,
+    shadowUrl: iconShadow,
 });
 
 

@@ -1,4 +1,4 @@
-import { syncElevators } from "@/app/api/sync/route.js";
+import { syncElevators } from "@/db/syncElevators";
 
 export async function GET() {
   const result = await syncElevators();
