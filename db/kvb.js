@@ -25,6 +25,7 @@ return locationsData.features.map((feature) => {
         derivedState: isBroken ? "INACTIVE" : "ACTIVE",
     };
 });
+}
 
 export function reshapeKVBElevator(feature) {
     return {
@@ -39,3 +40,4 @@ export function reshapeKVBElevator(feature) {
         stateExplanation: null, // KVB API does not provide a state explanation
     };
 }
+
