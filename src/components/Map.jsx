@@ -18,22 +18,21 @@ export function getColorByState(state) {
     } 
     return "gray"; // Default color for unknown states
 }
-function createIcon(color) {
+function createIcon(state) {
+    const color = getColorByState(state);
     return L.divIcon({
         className: "",
-        html: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="${color}"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>`,
-        iconSize: [24, 24],
-        iconAnchor: [12, 24],
-        popupAnchor: [0, -24],
-    });
+    html:`<svg fill=${color} width="24px" height="24px" viewBox="0 0 0.72 0.72" 
+    xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="m0.38 0.683 -0.02 0.017 -0.02 -0.017C0.174 0.538 0.09 0.411 0.09 0.3c0 -0.158 0.123 -0.27 0.27 -0.27s0.27 0.112 0.27 0.27c0 0.111 -0.084 0.238 -0.25 0.383M0.15 0.3c0 0.085 0.069 0.193 0.21 0.32 0.141 -0.127 0.21 -0.234 0.21 -0.32 0 -0.123 -0.095 -0.21 -0.21 -0.21s-0.21 0.087 -0.21 0.21m0.21 -0.15a0.15 0.15 0 1 1 0 0.3 0.15 0.15 0 0 1 0 -0.3m0 0.06a0.09 0.09 0 1 0 0 0.18 0.09 0.09 0 0 0 0 -0.18"/>
+    </svg>`,
+    iconSize: [24, 24],
+    iconAnchor: [12, 24],
+  });
 }
+        
 
 
-L.Icon.Default.mergeOptions({
-     iconRetinaUrl: iconRetina,
-    iconUrl: icon,
-    shadowUrl: iconShadow,
-});
+
 
 
 export default function Map({ elevators }) {
@@ -55,6 +54,7 @@ export default function Map({ elevators }) {
                 <Marker
                 key={elevator.elevatorID}
                 position={[elevator.latitude, elevator.longitude]}
+                icon={createIcon(elevator.state)}
                 >
                 <Popup>
                     <div>
