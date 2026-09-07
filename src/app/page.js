@@ -2,6 +2,8 @@ import MapWrapper from "@/components/MapWrapper";
 import dbConnect from "@/db/dbConnect";
 import Elevator from "@/db/models/elevators";
 
+export const dynamic = "force-dynamic";
+
 
 export default async function HomePage() {
   await dbConnect();
