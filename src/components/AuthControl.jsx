@@ -8,11 +8,38 @@ export default function AuthControl() {
     const { data: session, status } = useSession();
     const [isOpen, setIsOpen] = useState(false);
     const [email, setEmail] = useState("");
+    const [name,setName] = useState("");
     const [password, setPassword] = useState("");
+    const [showPassword, setShowPassword] = useState(false);
+    const [error, setError] = useState("");
+    const [ mode, setMode] = useState("Login");
+    const [success, setSuccess] = useState("");
 
     async function handleSubmit(e) {
         e.preventDefault();
-        await signIn("credentials", { email, password, callbackUrl: "/"});
+        setError("")
+        const result =await signIn("credentials", { name, email, password, redirect: false});
+        if (result?.error) {
+            setError("wrong email or password");
+        } else setIsOpen(false);
+    }
+    async function handleRegister(e) {
+        e.preventDefault();
+        setError("")
+        const result = await fetch("/api/register",{
+            method: "POST",
+            headers: { "Content-Type": "application/json"},
+            body: JSON.stringify({ name, email, password }),
+        })
+        console.log("Status:", result.status);
+        if (result.status === 409) {
+            setError("Email already registered");
+        } else if (!result.ok) {
+            setError("Something went wrong");
+        } else {
+            setMode("Login");
+            setSuccess("Account created! Please sign in.");
+        }
     }
 
     if (status === "loading") {
@@ -46,16 +73,57 @@ export default function AuthControl() {
                 className="fixed inset-0 z-[2000] flex items-center justify-center bg-black/50"
                 onClick={() => setIsOpen(false)}
                 >
-                <div className="rounded bg-white p-6 shadow-lg"
+                <div className="rounded bg-white p-6 shadow-lg w-80"
                 onClick={(e) => e.stopPropagation()}
                 >
+               {mode === "Login" && (
                 <form onSubmit={handleSubmit} className="flex flex-col gap-3">
+                    
                     <input value={email} onChange={(e) => setEmail(e.target.value)}
-                    type="email" placeholder="Email" className="border p-2 rounded" />
+                    type="email" placeholder="Email" className="border p-2 rounded text-gray-500" />
+                    <div className="relative">
                      <input value={password}onChange={(e) => setPassword(e.target.value)}
-                    type="password" placeholder="Password" className="border p-2 rounded" />
+                    type={showPassword ? "text" : "password"} placeholder="Password" className="border text-gray-500 p-2 rounded w-full pr-14" />
+                    <button
+                        type="button"
+                 onClick={() => setShowPassword(!showPassword)}
+                     className="absolute right-2 top-1/2 -translate-y-1/2"
+                        >
+                     {showPassword ? "Hide" : "Show"}
+                     </button>
+                     </div>
+                     {error && <p className="text-red-500 text-sm">{error}</p>}
                     <button type="submit" className="bg-black text-white p-2 rounded">Sign In </button>
-                </form>
+                    
+                    <p className="text-sm text-center text-gray-500">
+                        No account?{" "}
+                        <button type="button" onClick={() => setMode("Register")}
+                        className="underline text-black">
+                            Register
+                        </button>
+                    </p>
+                    </form>)}
+                    {mode === "Register" && (
+                <form onSubmit={handleRegister} className="flex flex-col gap-3">
+                     <input value={name} onChange={(e) => setName(e.target.value)}
+                    type="name" placeholder="Name" className="border p-2 rounded text-gray-500" />
+                    <input value={email} onChange={(e) => setEmail(e.target.value)}
+                    type="email" placeholder="Email" className="border p-2 rounded text-gray-500" />
+                    <div className="relative">
+                     <input value={password}onChange={(e) => setPassword(e.target.value)}
+                    type={showPassword ? "text" : "password"} placeholder="Password" className="border text-gray-500 p-2 rounded w-full pr-14" />
+                    <button
+                        type="button"
+                 onClick={() => setShowPassword(!showPassword)}
+                     className="absolute right-2 top-1/2 -translate-y-1/2"
+                        >
+                     {showPassword ? "Hide" : "Show"}
+                     </button>
+                     </div>
+                     {success && <p className="text-green-600 text-sm">{success}</p>}
+                     {error && <p className="text-red-500 text-sm">{error}</p>}
+                    <button type="submit" className="bg-black text-white p-2 rounded"> Register </button>
+                    </form>)}
              </div>
             </div>
 )}
