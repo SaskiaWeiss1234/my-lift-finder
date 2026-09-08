@@ -34,6 +34,8 @@ export default function AuthControl() {
         console.log("Status:", result.status);
         if (result.status === 409) {
             setError("Email already registered");
+        }else if (result.status === 400) {
+            setError("Please fill in all fields!")
         } else if (!result.ok) {
             setError("Something went wrong");
         } else {
@@ -105,12 +107,12 @@ export default function AuthControl() {
                     </form>)}
                     {mode === "Register" && (
                 <form onSubmit={handleRegister} className="flex flex-col gap-3">
-                     <input value={name} onChange={(e) => setName(e.target.value)}
+                     <input required value={name} onChange={(e) => setName(e.target.value)}
                     type="name" placeholder="Name" className="border p-2 rounded text-gray-500" />
-                    <input value={email} onChange={(e) => setEmail(e.target.value)}
+                    <input required value={email} onChange={(e) => setEmail(e.target.value)}
                     type="email" placeholder="Email" className="border p-2 rounded text-gray-500" />
                     <div className="relative">
-                     <input value={password}onChange={(e) => setPassword(e.target.value)}
+                     <input required value={password}onChange={(e) => setPassword(e.target.value)}
                     type={showPassword ? "text" : "password"} placeholder="Password" className="border text-gray-500 p-2 rounded w-full pr-14" />
                     <button
                         type="button"
@@ -122,6 +124,7 @@ export default function AuthControl() {
                      </div>
                      {success && <p className="text-green-600 text-sm">{success}</p>}
                      {error && <p className="text-red-500 text-sm">{error}</p>}
+                     {}
                     <button type="submit" className="bg-black text-white p-2 rounded"> Register </button>
                     </form>)}
              </div>
