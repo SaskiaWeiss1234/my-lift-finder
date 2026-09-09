@@ -5,8 +5,11 @@ import dbConnect from "@/db/dbConnect";
 import User from "@/db/models/User";
 
 
-const handler = NextAuth({
-    providers: [CredentialsProvider({
+
+
+export const authOptions = {  
+    providers: [
+        CredentialsProvider({
         name: "Credentials",
         credentials: {
             email: {label: "Email", type: "email" },
@@ -30,6 +33,8 @@ const handler = NextAuth({
 ],
 session: { strategy: "jwt"},
 secret: process.env.NEXTAUTH_SECRET,
-});
+};
+
+const handler = NextAuth(authOptions)
 
 export { handler as GET, handler as POST};
