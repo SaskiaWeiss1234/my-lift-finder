@@ -28,13 +28,16 @@ function createIcon(state) {
   });
 }
         
-export function ElevatorPopup({elevator}) {
+ function ElevatorPopup({elevator}) {
     const { data: session } = useSession();
     const [isReporting, setIsReporting] = useState(false);
     const [reportState, setReportState] =  useState("ACTIVE");
     const [reportComment, setReportComment] = useState("");
     const [error,setError] = useState("");
     const [reports, setReports] = useState([]);
+    const [isEditing, setIsEditing] = useState(null);
+    const [editState, setEditState] = useState("");
+    const [editComment, setEditComment] = useState("");
 
     useEffect(() => {
         if (!isReporting) {
@@ -47,10 +50,38 @@ export function ElevatorPopup({elevator}) {
         }
     }, [isReporting, elevator.elevatorID]);
 
+
+
+     async function handleDelete(reportId) {
+    const response = await fetch(`/api/reports/${reportId}`, {
+        method: "DELETE",
+    });
+     console.log("Delete response status:", response.status); 
+    if (response.ok) {
+        setReports(reports.filter(r => r._id !== reportId));
+    }
+}
+
     async  function handleReport(e) {
         e.preventDefault();
         setError("");
-            const result = await fetch("/api/reports",{
+        if (isEditing) {
+    const response = await fetch(`/api/reports/${isEditing}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ state: reportState, comment: reportComment }),
+    });
+     if (response.ok) {
+      setReports(reports.map(r =>
+        r._id === isEditing
+          ? { ...r, state: reportState, comment: reportComment }
+          : r
+      ));
+      setIsEditing(null);
+      setIsReporting(false);
+    }
+} else 
+          {  const result = await fetch("/api/reports",{
                 method: "POST",
                 headers: { "Content-Type": "application/json"},
                 body: JSON.stringify({elevatorID: elevator.elevatorID, state: reportState, comment: reportComment}),
@@ -64,6 +95,7 @@ export function ElevatorPopup({elevator}) {
                 setIsReporting(false);
             }
         }
+    }
 
 return (
     <Popup>
@@ -77,6 +109,27 @@ return (
                             <div key={report._id} className="text-xs text-gray-700 mb-1">
                                 <span>{report.state === "ACTIVE" ? "✅ Working" : "❌ Broken"}</span>
                                 {report.comment && <p className="text-gray-500">{report.comment}</p>}
+                                {session?.user?.id === report.userId && (
+                                    <button
+                                    type="button"
+                                    onClick={() => handleDelete(report._id)}
+                                    className="text-red-500 text-xs underline mt-1"
+                                    >Delete
+                                    </button>
+                                )}
+                        {session?.user?.id === report.userId && isEditing !== report._id && (
+                            <button
+                                type="button"
+                                onClick={(e) => {
+                                e.stopPropagation();
+                                setIsEditing(report._id);
+                                setReportState(report.state);
+                                setReportComment(report.comment || "");
+                                setIsReporting(true);
+                                }}
+                                className="text-blue-500 text-xs underline mt-1 ml-2"
+                            >Edit</button>
+                            )}
                             </div>
                             ))}
                         </div>
@@ -104,7 +157,7 @@ return (
                     />
             <div className="flex gap-2">
                 {error && <p className="text-red-500 text-sm">{error}</p>}
-                <button type="submit" className="bg-black text-white p-1 rounded text-sm">Submit Report</button>
+                <button type="submit" className="bg-black text-white p-1 rounded text-sm">{isEditing ? "Save Changes" : "Submit Report"}</button>
                 <button type="button" onClick={() => setIsReporting(false)} className="border p-1 rounded text-sm">Cancel</button>
             </div>
             </form>
