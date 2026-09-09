@@ -19,5 +19,21 @@ try {
     await Report.create({elevatorID, userId: session.user.id, state, comment});
     return Response.json({message: "Report send successfully"}, {status: 201})
 } catch (error) {
-    return Response.json({ message: "Failed to create report"}, {status: 500});
+    console.error("Report creation error:", error);  // ← add this
+  return Response.json({ message: "Failed to create report" }, { status: 500 });
 }}
+
+export async function GET(request) {
+    const { searchParams } = new URL(request.url);
+    const elevatorID = searchParams.get("elevatorID");
+    if (!elevatorID) {
+        return Response.json({ message: "ElevatorID not found"}, {status: 400})
+    }
+    try {
+        await dbConnect();
+        const reports = await Report.find({ elevatorID });
+        return Response.json(reports);
+    } catch (error) {
+        return Response.json({ message: "Failed to fetch reports" }, { status: 500});
+    }
+}
