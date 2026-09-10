@@ -5,8 +5,10 @@ import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { useSession } from "next-auth/react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import  useSWR  from "swr";
 
+const fetcher = (url) => fetch(url).then((res) => res.json());
 
 
 export function getColorByState(state) {
@@ -34,23 +36,12 @@ function createIcon(state) {
     const [reportState, setReportState] =  useState("ACTIVE");
     const [reportComment, setReportComment] = useState("");
     const [error,setError] = useState("");
-    const [reports, setReports] = useState([]);
     const [isEditing, setIsEditing] = useState(null);
-    const [editState, setEditState] = useState("");
-    const [editComment, setEditComment] = useState("");
-
-    useEffect(() => {
-        if (!isReporting) {
-            async function fetchReports() {  
-          const response = await fetch(`/api/reports?elevatorID=${elevator.elevatorID}`);
-          const data = await response.json();
-          setReports(data);
-            }
-         fetchReports();
-        }
-    }, [isReporting, elevator.elevatorID]);
 
 
+
+
+const { data: reports = [], mutate } = useSWR(`/api/reports?elevatorID=${elevator.elevatorID}`, fetcher)
 
      async function handleDelete(reportId) {
     const response = await fetch(`/api/reports/${reportId}`, {
@@ -58,7 +49,7 @@ function createIcon(state) {
     });
      console.log("Delete response status:", response.status); 
     if (response.ok) {
-        setReports(reports.filter(r => r._id !== reportId));
+        mutate();
     }
 }
 
@@ -72,13 +63,9 @@ function createIcon(state) {
       body: JSON.stringify({ state: reportState, comment: reportComment }),
     });
      if (response.ok) {
-      setReports(reports.map(r =>
-        r._id === isEditing
-          ? { ...r, state: reportState, comment: reportComment }
-          : r
-      ));
       setIsEditing(null);
       setIsReporting(false);
+      mutate();
     }
 } else 
           {  const result = await fetch("/api/reports",{
@@ -93,6 +80,7 @@ function createIcon(state) {
                 setError("Something went wrong")
             } else {
                 setIsReporting(false);
+                mutate();
             }
         }
     }
