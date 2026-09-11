@@ -4,7 +4,7 @@ import { Popup } from "react-leaflet";
 import { useState } from "react";
 import useSWR from "swr";
 import { useSession } from "next-auth/react";
-import { getColorByState } from "@/utils/mapUtils";
+
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 

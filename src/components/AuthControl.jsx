@@ -1,9 +1,8 @@
 "use client";
 
-import { useSession, signIn, signOut } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
 import { useState } from "react";
 import AuthForm from "./AuthForm";
-
 
 export default function AuthControl() {
     const { data: session, status } = useSession();
@@ -13,13 +12,9 @@ export default function AuthControl() {
     function switchMode(newMode) {
         setMode(newMode);
     }
-
-    
-
     if (status === "loading") {
         return <p>...</p>;
     }
-
     if (session) {
         return (
      <div className="flex items-center gap-2">
