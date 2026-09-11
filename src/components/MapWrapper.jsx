@@ -12,7 +12,7 @@ const Map = dynamic(() => import("@/components/Map"), {
 
 export default function MapWrapper({ elevators }) {
   const [ mounted, setMounted ] = useState(false);
-  const [filter, setFilter] = useState(["ACTIVE", "INACTIVE", "UNKNOWN"])
+  const [filter, setFilter] = useState([])
 
  
 
