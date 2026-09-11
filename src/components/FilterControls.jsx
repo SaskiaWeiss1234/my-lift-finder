@@ -11,7 +11,7 @@ export default function FilterControls({ setFilter, filter }) {
         }
     }
     return (
-        <fieldset className="absolute top-16 right-6 z-500 bg-white rounded-lg p-2 ">
+        <fieldset className="absolute top-16 right-6 z-50 bg-white rounded-lg p-2 ">
             <legend>Apply a filter:</legend>
             <div>
                 <input type="checkbox" id="active" name="active" checked={filter.includes("ACTIVE")} onChange={() => toggleFilter("ACTIVE")}

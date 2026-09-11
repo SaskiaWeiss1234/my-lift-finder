@@ -1,3 +1,5 @@
+import L from "leaflet";
+
 export function getColorByState(state) {
     if (state === "ACTIVE") {
         return "green";

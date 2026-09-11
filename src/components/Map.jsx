@@ -5,6 +5,7 @@ import "leaflet/dist/leaflet.css";
 import "leaflet/dist/leaflet.css";
 import ElevatorPopup from "./ElevatorPopup";
 import { createIcon } from "@/utils/mapUtils";
+import L from "leaflet";
 
 export default function Map({ elevators, filter }) {
    
