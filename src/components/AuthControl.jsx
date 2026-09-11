@@ -18,7 +18,7 @@ export default function AuthControl() {
     async function handleSubmit(e) {
         e.preventDefault();
         setError("")
-        const result =await signIn("credentials", { name, email, password, redirect: false});
+        const result =await signIn("credentials", { email, password, redirect: false});
         if (result?.error) {
             setError("wrong email or password");
         } else setIsOpen(false);
@@ -81,11 +81,7 @@ export default function AuthControl() {
                 >
                {mode === "Login" && (
                 <form onSubmit={handleSubmit} className="flex flex-col gap-2">
-                    <h1 className=""></h1>
-                    <div className="relative"></div>
-                    <input value={name} onChange={(e) => setName(e.target.value)}
-                    type="name" placeholder="Name" className="border p-2 rounded text-gray-500" />
-                    <div className="relative"></div>
+                    <h1 className="">Login</h1>
                     <input value={email} onChange={(e) => setEmail(e.target.value)}
                     type="email" placeholder="Email" className="border p-2 rounded text-gray-500" />
                     <div className="relative">
