@@ -15,6 +15,12 @@ export default function AuthControl() {
     const [ mode, setMode] = useState("Login");
     const [success, setSuccess] = useState("");
 
+    function switchMode(newMode) {
+        setMode(newMode);
+        setError("");
+        setSuccess("");
+    }
+
     async function handleSubmit(e) {
         e.preventDefault();
         setError("")
@@ -39,7 +45,7 @@ export default function AuthControl() {
         } else if (!result.ok) {
             setError("Something went wrong");
         } else {
-            setMode("Login");
+            switchMode("Login");
             setSuccess("Account created! Please sign in.");
         }
     }
