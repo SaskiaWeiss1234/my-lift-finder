@@ -14,6 +14,7 @@ export default function AuthControl() {
     const [error, setError] = useState("");
     const [ mode, setMode] = useState("Login");
     const [success, setSuccess] = useState("");
+    const [loading, setIsLoading] = useState(false);
 
     function switchMode(newMode) {
         setMode(newMode);
@@ -27,11 +28,14 @@ export default function AuthControl() {
         const result =await signIn("credentials", { email, password, redirect: false});
         if (result?.error) {
             setError("wrong email or password");
-        } else setIsOpen(false);
+        } else 
+            setIsOpen(false);
+            
     }
     async function handleRegister(e) {
         e.preventDefault();
         setError("")
+        setIsLoading(true);
         const result = await fetch("/api/register",{
             method: "POST",
             headers: { "Content-Type": "application/json"},
@@ -47,6 +51,7 @@ export default function AuthControl() {
         } else {
             switchMode("Login");
             setSuccess("Account created! Please sign in.");
+            
         }
     }
 
