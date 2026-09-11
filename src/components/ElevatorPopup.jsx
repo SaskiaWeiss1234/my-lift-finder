@@ -24,6 +24,9 @@ const { data: reports = [], mutate } = useSWR(`/api/reports?elevatorID=${elevato
     });
      console.log("Delete response status:", response.status); 
     if (response.ok) {
+        if (isEditing === reportId) {
+            setIsEditing(null);
+        }
         mutate();
     }
 }
@@ -70,7 +73,7 @@ return (
                             <div key={report._id} className="text-xs text-gray-700 mb-1">
                                 <span>{report.state === "ACTIVE" ? "✅ Working" : "❌ Broken"}</span>
                                 {report.comment && <p className="text-gray-500">{report.comment}</p>}
-                                {session?.user?.id === report.userId && (
+                                {session?.user?.id === report.userId && isEditing !== report._id && (
                                     <button
                                     type="button"
                                     onClick={() => handleDelete(report._id)}
