@@ -50,7 +50,8 @@ export default function AuthControl() {
 
     if (session) {
         return (
-     <div>
+     <div className="flex items-center gap-2">
+        <span className="flex items-center gap-2">{name}</span>
         <button onClick={() => signOut()} className="flex items-center gap-2">
              <svg width="36" height="36" viewBox="0 0 1.08 1.08" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path fillRule="evenodd" clipRule="evenodd"
@@ -79,8 +80,12 @@ export default function AuthControl() {
                 onClick={(e) => e.stopPropagation()}
                 >
                {mode === "Login" && (
-                <form onSubmit={handleSubmit} className="flex flex-col gap-3">
-                    
+                <form onSubmit={handleSubmit} className="flex flex-col gap-2">
+                    <h1 className=""></h1>
+                    <div className="relative"></div>
+                    <input value={name} onChange={(e) => setName(e.target.value)}
+                    type="name" placeholder="Name" className="border p-2 rounded text-gray-500" />
+                    <div className="relative"></div>
                     <input value={email} onChange={(e) => setEmail(e.target.value)}
                     type="email" placeholder="Email" className="border p-2 rounded text-gray-500" />
                     <div className="relative">

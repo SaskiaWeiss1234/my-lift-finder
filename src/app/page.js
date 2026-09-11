@@ -2,6 +2,7 @@ import AuthControl from "@/components/AuthControl";
 import MapWrapper from "@/components/MapWrapper";
 import dbConnect from "@/db/dbConnect";
 import Elevator from "@/db/models/elevators";
+import { getColorByState } from "@/utils/mapUtils";
 
 export const dynamic = "force-dynamic";
 
@@ -16,7 +17,7 @@ const elevators = JSON.parse(JSON.stringify(raw));
       <div className=" absolute top-6 right-6 z-[1000] rounded-lg  p-2 shadow bg-green-600">
         <AuthControl/>
       </div>
-      <MapWrapper elevators={elevators} />
+      <MapWrapper elevators={elevators}  />
     </main>
   );
 }
