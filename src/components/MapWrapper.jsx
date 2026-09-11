@@ -2,6 +2,8 @@
 
 import dynamic from "next/dynamic";
 import { useState, useEffect } from "react";
+import FilterControls from "./FilterControls";
+
 
 const Map = dynamic(() => import("@/components/Map"), { 
   ssr: false,
@@ -10,12 +12,21 @@ const Map = dynamic(() => import("@/components/Map"), {
 
 export default function MapWrapper({ elevators }) {
   const [ mounted, setMounted ] = useState(false);
+  const [filter, setFilter] = useState([])
 
+ 
+
+   
+   
   useEffect(() => {
     setMounted(true);
   }, []);
   if (!mounted) {
     return <p>Loading map...</p>;
   }
-    return <Map elevators={elevators} />;
+    return (
+    <>
+    <FilterControls filter={filter} setFilter={setFilter} />
+    <Map elevators={elevators} filter={filter} />
+    </>)
 }
