@@ -105,7 +105,8 @@ export default function AuthControl() {
                     <button type="submit" className="bg-black text-white p-2 rounded">Sign In </button>
                     
                     <p className="text-sm text-center text-gray-500">
-                        No account?{" "}
+                         {success && <p className="text-green-600 text-sm">{success}</p>}
+                        {error && <p className="text-red-500 text-sm">{success}</p>}No account?{" "}
                         <button type="button" onClick={() => setMode("Register")}
                         className="underline text-black">
                             Register
