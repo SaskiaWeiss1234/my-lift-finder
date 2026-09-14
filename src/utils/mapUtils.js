@@ -22,6 +22,4 @@ export function createIcon(state) {
     });
 }
 
-export function getShortStationName(stationName) {
-    return stationName?.split(",")[1]?.trim() || "Unknown Location";
-}
+

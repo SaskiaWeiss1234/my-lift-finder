@@ -64,7 +64,7 @@ const { data: reports = [], mutate } = useSWR(`/api/reports?elevatorID=${elevato
 return (
     <Popup>
                     <div>
-                        <h3>{elevator.shortName}</h3>
+                        <h3>{elevator.stationName}</h3>
                         <p>Official status: {elevator.state}</p>
                         {reports.length > 0 && (
                         <div className="mt-2 border-t pt-2">

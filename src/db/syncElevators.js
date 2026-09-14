@@ -2,7 +2,7 @@ import  dbConnect  from "./dbConnect.js";
 import { getElevatorsFromFasta, reshapeElevator } from "./fasta.js";
 import Elevator from "./models/elevators.js";
 import { getElevatorsFromKVB, reshapeKVBElevator } from "./kvb.js";
-import { getStationName } from "@/db/geocoding.js"
+import { getAllStations, findNearestStation } from "./geocoding.js"
 
 
 export async function syncElevators() {
@@ -13,13 +13,13 @@ export async function syncElevators() {
     const reshapedKVB = rawKVB.map(reshapeKVBElevator);
 
     const allElevators = [...reshapedFasta, ...reshapedKVB];
+    const stations = await getAllStations();
 
     for (const elevator of allElevators) {
-        const stationName = await getStationName(elevator.latitude, elevator.longitude);
-        const shortName = stationName.split(",")[1]?.trim();
+        const stationName = findNearestStation(elevator.latitude, elevator.longitude, stations);
         await Elevator.updateOne(
             { elevatorID: elevator.elevatorID },
-            {...elevator, stationName, shortName },
+            {...elevator, stationName },
             { upsert: true }
         );
         await new Promise(resolve => setTimeout(resolve, 1000));
