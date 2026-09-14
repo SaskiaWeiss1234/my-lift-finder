@@ -5,15 +5,17 @@ import "leaflet/dist/leaflet.css";
 import "leaflet/dist/leaflet.css";
 import ElevatorPopup from "./ElevatorPopup";
 import { createIcon } from "@/utils/mapUtils";
-import L from "leaflet";
 
-export default function Map({ elevators, filter }) {
+
+export default function Map({ elevators, filter, searchTerm }) {
    
-     const filteredElevators = filter.length === 0 
-   ? elevators
-   : elevators.filter(elevator =>
-        filter.includes(elevator.state)
-    );
+     const filteredElevators =
+     elevators.filter(elevator => {  
+    const statusMatch = filter.length === 0 || filter.includes(elevator.state);
+    const searchMatch = searchTerm === "" || elevator.description.toLowerCase().includes(searchTerm.toLowerCase());
+    return statusMatch && searchMatch;
+});
+
    
     return (
         <MapContainer 

@@ -1,3 +1,5 @@
+"use client"
+
 import L from "leaflet";
 
 export function getColorByState(state) {

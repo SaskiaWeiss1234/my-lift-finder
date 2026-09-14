@@ -2,7 +2,7 @@ import AuthControl from "@/components/AuthControl";
 import MapWrapper from "@/components/MapWrapper";
 import dbConnect from "@/db/dbConnect";
 import Elevator from "@/db/models/elevators";
-import { getColorByState } from "@/utils/mapUtils";
+
 
 export const dynamic = "force-dynamic";
 
