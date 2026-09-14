@@ -12,7 +12,7 @@ export default function Map({ elevators, filter, searchTerm }) {
      const filteredElevators =
      elevators.filter(elevator => {  
     const statusMatch = filter.length === 0 || filter.includes(elevator.state);
-    const searchMatch = searchTerm === "" || elevator.description.toLowerCase().includes(searchTerm.toLowerCase());
+    const searchMatch = searchTerm === "" || elevator.shortName?.toLowerCase().includes(searchTerm.toLowerCase());
     return statusMatch && searchMatch;
 });
 

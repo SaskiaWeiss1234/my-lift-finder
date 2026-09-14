@@ -14,20 +14,8 @@ const Map = dynamic(() => import("@/components/Map"), {
 export default function MapWrapper({ elevators }) {
   const [ mounted, setMounted ] = useState(false);
   const [filter, setFilter] = useState([])
-  const [ value, setValue ] = useState("");
 const [searchTerm, setSearchTerm] = useState("");
 
-  function handleSearch(e) {
-    const newValue = e.target.value;
-
-    setValue(newValue);
-    onSearch(newValue);
-  }
-
-  function handleClear() {
-    setValue("");
-    onSearch("");
-  }
 
  
 

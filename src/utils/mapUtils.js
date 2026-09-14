@@ -21,3 +21,7 @@ export function createIcon(state) {
         iconAnchor: [12, 24],
     });
 }
+
+export function getShortStationName(stationName) {
+    return stationName?.split(",")[1]?.trim() || "Unknown Location";
+}
