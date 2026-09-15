@@ -37,6 +37,6 @@ export function findNearestStation(latitude, longitude, stations) {
             nearest = station;
         }
     }
-    return nearest?.tags?.name || "Unknown Location";
+    return nearest?.name || "Unknown Location";
 }
 
