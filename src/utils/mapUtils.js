@@ -1,3 +1,7 @@
+"use client"
+
+import L from "leaflet";
+
 export function getColorByState(state) {
     if (state === "ACTIVE") {
         return "green";
@@ -17,3 +21,5 @@ export function createIcon(state) {
         iconAnchor: [12, 24],
     });
 }
+
+

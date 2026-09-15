@@ -40,7 +40,7 @@ export default function AuthControl() {
         <span>Sign In</span>
         </button>
             {isOpen && (
-                <div className="fixed inset-0 z-2000 flex items-center justify-center bg-black/50"
+                <div className="fixed inset-0  flex items-center justify-center bg-black/50"
                 onClick={() => setIsOpen(false)}>
                 <div className="rounded bg-white p-6 shadow-lg w-80"
                 onClick={(e) => e.stopPropagation()}>

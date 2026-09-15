@@ -34,6 +34,9 @@ const elevatorSchema = new Schema(
     source: {
       type: String, 
     },
+    stationName: {
+      type: String,
+    },
   },
 
   { timestamps: true },

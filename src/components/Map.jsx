@@ -6,13 +6,16 @@ import "leaflet/dist/leaflet.css";
 import ElevatorPopup from "./ElevatorPopup";
 import { createIcon } from "@/utils/mapUtils";
 
-export default function Map({ elevators, filter }) {
+
+export default function Map({ elevators, filter, searchTerm }) {
    
-     const filteredElevators = filter.length === 0 
-   ? elevators
-   : elevators.filter(elevator =>
-        filter.includes(elevator.state)
-    );
+     const filteredElevators =
+     elevators.filter(elevator => {  
+    const statusMatch = filter.length === 0 || filter.includes(elevator.state);
+    const searchMatch = searchTerm === "" || elevator.stationName?.toLowerCase().includes(searchTerm.toLowerCase());
+    return statusMatch && searchMatch;
+});
+
    
     return (
         <MapContainer 
