@@ -21,11 +21,17 @@ export async function POST(request) {
         await user.save();
 
         const resetLink = `http://localhost:3000/reset-password?token=${token}`;
-        await sendEmail(
+        try {
+            await sendEmail(
             user.email,
             "Reset your password",
             `<p>Click <a href="${resetLink}">here</a> to reset your password. This link expires in 1 hour.</p>`
         );
+    
+    
+} catch (error) {
+    console.error("Failed to send reset email:", error);
+}
     }
     return Response.json({ message:"If an account exists, a reset link has been sent."})
 }
