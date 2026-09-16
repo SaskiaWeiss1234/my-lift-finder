@@ -14,9 +14,6 @@ const elevators = JSON.parse(JSON.stringify(raw));
 
   return (
     <main className="relative mx-auto max-w-105 h-screen p-4">
-      <div className=" absolute top-6 right-6 z-[1000] rounded-lg  p-2 shadow bg-green-600">
-        <AuthControl/>
-      </div>
       <MapWrapper elevators={elevators}  />
     </main>
   );

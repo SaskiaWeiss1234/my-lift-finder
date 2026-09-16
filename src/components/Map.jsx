@@ -19,6 +19,7 @@ export default function Map({ elevators, filter, searchTerm }) {
    
     return (
         <MapContainer 
+        zoomControl={false}
         center={[50.942519, 6.958543]}
         zoom={13}
         className="h-full w-full rounded-xl"

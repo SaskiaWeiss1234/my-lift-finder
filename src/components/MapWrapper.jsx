@@ -4,7 +4,7 @@ import dynamic from "next/dynamic";
 import { useState, useEffect } from "react";
 import FilterControls from "./FilterControls";
 import SearchBar from "./SearchBar";
-
+import AuthControl from "./AuthControl";
 
 const Map = dynamic(() => import("@/components/Map"), { 
   ssr: false,
@@ -30,8 +30,11 @@ const [searchTerm, setSearchTerm] = useState("");
 
     return (
     <div className="relative h-full">
+      <div className="absolute top-0 left-0 right-0 z-[1000] flex items-center justify-between gap-2 p-2 bg-black/70">
     <FilterControls filter={filter} setFilter={setFilter} />
     <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+    <AuthControl />
+    </div>
     <Map elevators={elevators} filter={filter} searchTerm={searchTerm} />
     </div>)
 }

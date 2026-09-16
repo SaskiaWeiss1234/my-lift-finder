@@ -41,7 +41,7 @@ export default function AuthForm({switchMode, setIsOpen, mode }) {
             setError("Something went wrong");
         } else {
             switchMode("Login");
-            setSuccess("Account created! Please sign in.");
+            setSuccess("Account created! Please verify your email trough the link we sent you. ");
         }
     }
     async function handleForgotPassword(e) {
