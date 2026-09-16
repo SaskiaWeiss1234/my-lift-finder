@@ -16,7 +16,7 @@ export default function AuthForm({switchMode, setIsOpen, mode }) {
     async function handleSubmit(e) {
             e.preventDefault();
             setError("")
-            const result =await signIn("credentials", { email, password, redirect: false});
+            const result = await signIn("credentials", { email, password, redirect: false});
             if (result?.error) {
                 setError("wrong email or password");
             } else 
