@@ -23,6 +23,13 @@ const userSchema = new Schema(
         resetTokenExpiry: {
             type: Date,
         },
+        verified: {
+            type:Boolean,
+            default: false,
+        },
+        verificationToken: {
+            type: String,
+        },
 },
     {
         timestamps: true
