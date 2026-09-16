@@ -15,7 +15,7 @@ export async function POST(request) {
     resetTokenExpiry: { $gt: new Date() },
     });
     if (!user) {
-        return Response.json({ message: "INvalid or expired reset link"}, { status: 400 });
+        return Response.json({ message: "Invalid or expired reset link"}, { status: 400 });
     }
     
     const hashedPassword = await bcrypt.hash(newPassword, 10);
