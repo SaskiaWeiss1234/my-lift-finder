@@ -3,7 +3,6 @@
 import { useState } from "react";
 
 export default function ResetPasswordForm({ token }) {
-    console.log("Received token prop:", token, typeof token);
     const [newPassword, setNewPassword] = useState("");
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
