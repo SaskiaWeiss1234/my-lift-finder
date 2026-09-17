@@ -11,11 +11,12 @@ export default function AuthForm({switchMode, setIsOpen, mode }) {
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
     const [loading, setIsLoading] = useState(false);
+   
      
     async function handleSubmit(e) {
             e.preventDefault();
             setError("")
-            const result =await signIn("credentials", { email, password, redirect: false});
+            const result = await signIn("credentials", { email, password, redirect: false});
             if (result?.error) {
                 setError("wrong email or password");
             } else 
@@ -41,6 +42,21 @@ export default function AuthForm({switchMode, setIsOpen, mode }) {
         } else {
             switchMode("Login");
             setSuccess("Account created! Please sign in.");
+        }
+    }
+    async function handleForgotPassword(e) {
+        e.preventDefault();
+        setError("");
+        setSuccess("");
+        const result = await fetch("/api/password-reset/request", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email }),
+        });
+        if (result.ok) {
+            setSuccess("If an account exists, a reset link has been sent.")
+        } else {
+            setError("Something went wrong");
         }
     }
    return (
@@ -72,6 +88,13 @@ export default function AuthForm({switchMode, setIsOpen, mode }) {
                             Register 
                         </button>
                     </p>
+                    <p className="text-sm text-center text-gray-500">
+                         Forgot Password?
+                        <button type="button" onClick={() => switchMode("Forgot Password")}
+                        className="underline text-black">
+                            Reset 
+                        </button>
+                    </p>
                     </form>)}
 
                      {mode === "Register" && (
@@ -101,6 +124,12 @@ export default function AuthForm({switchMode, setIsOpen, mode }) {
                         </p>
                      <button type="submit" className="bg-black text-white p-2 rounded"> Register </button>
                     </form>
+                    )}
+                    {mode === "Forgot Password" && (
+                        <form className="flex flex-col gap-2" onSubmit={handleForgotPassword}>
+                            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" className="border p-2 rounded text-gray-500" />
+                            <button type="submit" className="bg-black text-white p-2 rounded">Send Reset Link</button>
+                        </form>
                     )}
                     </>
                      );
