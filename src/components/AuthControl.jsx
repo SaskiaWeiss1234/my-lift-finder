@@ -1,17 +1,28 @@
 "use client";
 
 import { useSession, signOut } from "next-auth/react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import AuthForm from "./AuthForm";
+import { useSearchParams } from "next/navigation";
 
 export default function AuthControl() {
     const { data: session, status } = useSession();
     const [ mode, setMode] = useState("Login");
     const [isOpen, setIsOpen] = useState(false);
 
+    const searchParams = useSearchParams();
+    const emailParam = searchParams.get("email") || "";
+
+    useEffect(() => {
+        if (searchParams.get("openLogin") === "true") {
+            setIsOpen(true);
+        }
+    }, [searchParams]);
+
     function switchMode(newMode) {
         setMode(newMode);
     }
+
     if (status === "loading") {
         return <p>...</p>;
     }
@@ -44,7 +55,7 @@ export default function AuthControl() {
                 onClick={() => setIsOpen(false)}>
                 <div className="rounded bg-white p-6 shadow-lg w-80"
                 onClick={(e) => e.stopPropagation()}>
-                    <AuthForm mode={mode} switchMode={switchMode} setIsOpen={setIsOpen} />
+                    <AuthForm mode={mode} switchMode={switchMode} setIsOpen={setIsOpen} initialEmail={emailParam} />
                     </div>
                     </div>
                     )}

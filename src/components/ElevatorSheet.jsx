@@ -1,6 +1,5 @@
 "use client" 
 
-import { Popup } from "react-leaflet";
 import { useState } from "react";
 import useSWR from "swr";
 import { useSession } from "next-auth/react";
@@ -8,13 +7,14 @@ import { useSession } from "next-auth/react";
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
- export default function ElevatorPopup({elevator}) {
+ export default function ElevatorSheet({elevator, onClose}) {
     const { data: session } = useSession();
     const [isReporting, setIsReporting] = useState(false);
     const [reportState, setReportState] =  useState("ACTIVE");
     const [reportComment, setReportComment] = useState("");
     const [error,setError] = useState("");
     const [isEditing, setIsEditing] = useState(null);
+    
 
 const { data: reports = [], mutate } = useSWR(`/api/reports?elevatorID=${elevator.elevatorID}`, fetcher)
 
@@ -62,10 +62,13 @@ const { data: reports = [], mutate } = useSWR(`/api/reports?elevatorID=${elevato
         }
     }
 return (
-    <Popup>
-                    <div>
-                        <h3>{elevator.stationName}</h3>
+                    <div className="fixed bottom-2 left-1/2 -translate-x-1/2 z-[2000] bg-white rounded-t-2xl shadow-lg p-4 max-h-[60vh] overflow-y-auto w-full max-w-[420px]">
+                        <div className="flex justify-between items-center mb-2">
+                        <h3 className="text-lg font-semibold">{elevator.stationName}</h3>
+                        <button onClick={onClose} className="text-gray-500 text-xl leading-none">&times;</button>
+                        </div>
                         <p>Official status: {elevator.state}</p>
+                        
                         {reports.length > 0 && (
                         <div className="mt-2 border-t pt-2">
                             <p className="text-xs font-semibold text-gray-500 mb-1">Community Reports:</p>
@@ -77,7 +80,7 @@ return (
                                     <button
                                     type="button"
                                     onClick={() => handleDelete(report._id)}
-                                    className="text-red-500 text-xs underline mt-1"
+                                    className="text-red-500 text-xs underline mt-1 p-2"
                                     >Delete
                                     </button>
                                 )}
@@ -127,7 +130,7 @@ return (
             </form>
              )}
             </div>
-            </Popup>
+            
         );
     }
 

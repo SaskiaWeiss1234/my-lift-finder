@@ -3,8 +3,8 @@ import { signIn,  } from "next-auth/react";
 import { useState } from "react";
 
 
-export default function AuthForm({switchMode, setIsOpen, mode }) {
-    const [email, setEmail] = useState("");
+export default function AuthForm({switchMode, setIsOpen, mode, initialEmail }) {
+    const [email, setEmail] = useState(initialEmail || "");
     const [name,setName] = useState("");
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);

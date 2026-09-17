@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import FilterControls from "./FilterControls";
 import SearchBar from "./SearchBar";
 import AuthControl from "./AuthControl";
+import ElevatorSheet from "./ElevatorSheet";
 
 const Map = dynamic(() => import("@/components/Map"), { 
   ssr: false,
@@ -14,7 +15,8 @@ const Map = dynamic(() => import("@/components/Map"), {
 export default function MapWrapper({ elevators }) {
   const [ mounted, setMounted ] = useState(false);
   const [filter, setFilter] = useState([])
-const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedElevator, setSelectedElevator] = useState(null);
 
 
  
@@ -35,6 +37,14 @@ const [searchTerm, setSearchTerm] = useState("");
     <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
     <AuthControl />
     </div>
-    <Map elevators={elevators} filter={filter} searchTerm={searchTerm} />
+    <Map 
+    elevators={elevators} 
+    filter={filter} 
+    searchTerm={searchTerm} 
+    onSelectElevator={setSelectedElevator} 
+    selectedElevator={selectedElevator} />
+    {selectedElevator && (
+      <ElevatorSheet elevator={selectedElevator} onClose={() => setSelectedElevator(null)} />
+    )}
     </div>)
 }
