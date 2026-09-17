@@ -62,28 +62,29 @@ const { data: reports = [], mutate } = useSWR(`/api/reports?elevatorID=${elevato
         }
     }
 return (
-                    <div className="fixed bottom-2 left-1/2 -translate-x-1/2 z-[2000] bg-white rounded-t-2xl shadow-lg p-4 max-h-[60vh] overflow-y-auto w-full max-w-[420px]">
+                    <div className="fixed bottom-2 left-1/2 -translate-x-1/2 z-[2000] bg-surface rounded-t-2xl shadow-lg p-4 max-h-[70vh] overflow-y-auto w-full max-w-[min(90vw, 900px)]">
                         <div className="flex justify-between items-center mb-2">
-                        <h3 className="text-lg font-semibold">{elevator.stationName}</h3>
-                        <button onClick={onClose} className="text-gray-500 text-xl leading-none">&times;</button>
+                        <h3 className="text-lg font-bold text-foreground">{elevator.stationName}</h3>
+                        <button onClick={onClose} className="text-muted text-xl leading-none">&times;</button>
                         </div>
-                        <p>Official status: {elevator.state}</p>
+                        <p className="text-foreground">Official status: {elevator.state}</p>
                         
                         {reports.length > 0 && (
-                        <div className="mt-2 border-t pt-2">
-                            <p className="text-xs font-semibold text-gray-500 mb-1">Community Reports:</p>
+                        <div className="mt-2 border-t border-border-subtle pt-2">
+                            <p className="text-xs font-semibold text-muted mb-1">Community Reports:</p>
                             {reports.map((report) => (
-                            <div key={report._id} className="text-xs text-gray-700 mb-1">
+                            <div key={report._id} className="text-xs text-foreground mb-2">
                                 <span>{report.state === "ACTIVE" ? "✅ Working" : "❌ Broken"}</span>
-                                {report.comment && <p className="text-gray-500">{report.comment}</p>}
+                                {report.comment && <p className="text-muted">{report.comment}</p>}
                                 {session?.user?.id === report.userId && isEditing !== report._id && (
                                     <button
                                     type="button"
                                     onClick={() => handleDelete(report._id)}
-                                    className="text-red-500 text-xs underline mt-1 p-2"
-                                    >Delete
+                                    className="text-alert text-xs underline mt-1 mr-2">
+                                        Delete
                                     </button>
                                 )}
+
                         {session?.user?.id === report.userId && isEditing !== report._id && (
                             <button
                                 type="button"
@@ -94,7 +95,7 @@ return (
                                 setReportComment(report.comment || "");
                                 setIsReporting(true);
                                 }}
-                                className="text-blue-500 text-xs underline mt-1 ml-2"
+                                className="text-primary text-xs underline mt-1 "
                             >Edit</button>
                             )}
                             </div>
@@ -102,14 +103,14 @@ return (
                         </div>
 )}
                         { session && !isReporting && (
-                            <button className="bg-yellow-500 rounded p-1.5 m-1.5" onClick={(e) => {  
+                            <button className="bg-accent rounded px-3 text-white  py-2 mt-2 hover:opacity-90 transition-opacity" onClick={(e) => {  
                                 e.stopPropagation();
                                 setIsReporting(true)}}>Report Status</button>
                         )}
                          {isReporting && (
              <form onSubmit={handleReport} className="flex flex-col gap-2">
                 <select value={reportState} onChange={(e) => setReportState(e.target.value)}
-                className="border p-1 rounded"
+                className="border border-border-subtle p-2 rounded bg-surface text-foreground"
                 >
                     <option value="ACTIVE">Working</option>
                     <option value="INACTIVE">Broken</option>
@@ -119,13 +120,13 @@ return (
                 onChange={(e) => setReportComment(e.target.value)}
                 placeholder="Optional comment (max 150 characters)"
                 maxLength={150}
-                className="border p-1 rounded text-sm resize-none"
+                className="border border-border-subtle p-2 rounded text-sm resize-none bg-surface text-foreground placeholder:text-muted"
                 rows={3}
                     />
             <div className="flex gap-2">
-                {error && <p className="text-red-500 text-sm">{error}</p>}
-                <button type="submit" className="bg-black text-white p-1 rounded text-sm">{isEditing ? "Save Changes" : "Submit Report"}</button>
-                <button type="button" onClick={() => setIsReporting(false)} className="border p-1 rounded text-sm">Cancel</button>
+                {error && <p className="text-alert text-sm">{error}</p>}
+                <button type="submit" className="bg-primary text-white p-2 rounded text-sm hover:opacity-90 transition-opacity">{isEditing ? "Save Changes" : "Submit Report"}</button>
+                <button type="button" onClick={() => setIsReporting(false)} className="border border-border-subtle p-2 rounded text-sm text-foreground bg-surface-elevated">Cancel</button>
             </div>
             </form>
              )}

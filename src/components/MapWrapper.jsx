@@ -32,7 +32,7 @@ export default function MapWrapper({ elevators }) {
 
     return (
     <div className="relative h-full">
-      <div className="absolute top-0 left-0 right-0 z-[1000] flex items-center justify-between gap-2 p-2 bg-black/70">
+      <div className="absolute top-0 left-0 right-0 z-[1000] flex items-center justify-between gap-2 p-2 bg-primary/70">
     <FilterControls filter={filter} setFilter={setFilter} />
     <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
     <AuthControl />

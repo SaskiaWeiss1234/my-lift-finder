@@ -13,7 +13,7 @@ const raw = await Elevator.find({}, { _id: 0}).lean();
 const elevators = JSON.parse(JSON.stringify(raw));
 
   return (
-    <main className="relative mx-auto max-w-105 h-screen">
+    <main className="relative mx-auto w-full max-w-[min(90vw, 900px)] h-screen">
       <MapWrapper elevators={elevators}  />
     </main>
   );
