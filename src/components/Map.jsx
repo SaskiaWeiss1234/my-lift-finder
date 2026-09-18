@@ -3,11 +3,10 @@
 import { MapContainer, TileLayer, Marker } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import "leaflet/dist/leaflet.css";
-import ElevatorPopup from "./ElevatorPopup";
 import { createIcon } from "@/utils/mapUtils";
 
 
-export default function Map({ elevators, filter, searchTerm }) {
+export default function Map({ elevators, filter, searchTerm, onSelectElevator, selectedElevator }) {
    
      const filteredElevators =
      elevators.filter(elevator => {  
@@ -19,6 +18,7 @@ export default function Map({ elevators, filter, searchTerm }) {
    
     return (
         <MapContainer 
+        zoomControl={false}
         center={[50.942519, 6.958543]}
         zoom={13}
         className="h-full w-full rounded-xl"
@@ -33,12 +33,18 @@ export default function Map({ elevators, filter, searchTerm }) {
                 <Marker
                 key={elevator.elevatorID}
                 position={[elevator.latitude, elevator.longitude]}
-                icon={createIcon(elevator.state)}
-                >
-             <ElevatorPopup elevator={elevator} />
-            </Marker>
-                ))}
+                icon={createIcon(elevator.state, selectedElevator?.elevatorID === elevator.elevatorID)}
+                eventHandlers={{ 
+                    click: () => {
+                    if (selectedElevator?.elevatorID === elevator.elevatorID) {
+                        onSelectElevator(null); 
+                    } else {
+                        onSelectElevator(elevator);
+                    }
+                },
+            }}
+            />
+        ))}    
         </MapContainer>
-        
-    );
+         );
 }

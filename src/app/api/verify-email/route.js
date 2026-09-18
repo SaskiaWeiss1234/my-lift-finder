@@ -18,5 +18,8 @@ export async function POST(request) {
     user.verificationToken = undefined;
     await user.save();
 
-    return Response.json({ message: "Email verified successfully"}, { status: 200});
+    return Response.json( { 
+        message: "Email verified successfully!",  
+        email: user.email 
+    }, { status: 200 });
 }

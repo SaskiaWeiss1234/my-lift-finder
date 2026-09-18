@@ -4,7 +4,8 @@ import dynamic from "next/dynamic";
 import { useState, useEffect } from "react";
 import FilterControls from "./FilterControls";
 import SearchBar from "./SearchBar";
-
+import AuthControl from "./AuthControl";
+import ElevatorSheet from "./ElevatorSheet";
 
 const Map = dynamic(() => import("@/components/Map"), { 
   ssr: false,
@@ -14,7 +15,8 @@ const Map = dynamic(() => import("@/components/Map"), {
 export default function MapWrapper({ elevators }) {
   const [ mounted, setMounted ] = useState(false);
   const [filter, setFilter] = useState([])
-const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedElevator, setSelectedElevator] = useState(null);
 
 
  
@@ -30,8 +32,19 @@ const [searchTerm, setSearchTerm] = useState("");
 
     return (
     <div className="relative h-full">
+      <div className="absolute top-0 left-0 right-0 z-[1000] flex items-center justify-between gap-2 p-2 bg-primary/70">
     <FilterControls filter={filter} setFilter={setFilter} />
     <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-    <Map elevators={elevators} filter={filter} searchTerm={searchTerm} />
+    <AuthControl />
+    </div>
+    <Map 
+    elevators={elevators} 
+    filter={filter} 
+    searchTerm={searchTerm} 
+    onSelectElevator={setSelectedElevator} 
+    selectedElevator={selectedElevator} />
+    {selectedElevator && (
+      <ElevatorSheet elevator={selectedElevator} onClose={() => setSelectedElevator(null)} />
+    )}
     </div>)
 }
