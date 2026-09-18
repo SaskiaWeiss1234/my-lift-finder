@@ -1,13 +1,23 @@
-export async function getAllStations() {
-    const query = `[out:json];node["railway"="station"](50.83,6.70,51.02,7.24);out;`
-    const url = `https://overpass.private.coffee/api/interpreter?data=${encodeURIComponent(query)}`;
+import { readFullStations } from "db-hafas-stations";
 
-    const response = await fetch(url, {
-        headers: { "User-Agent": "MyLiftFinder"}
-    });
-    const text = await response.text();
-    const data = JSON.parse(text);
-    return data.elements || [];
+export async function getAllStations() {
+    const stations = [];
+    for await (const station of readFullStations()) {
+        if (
+            station.location &&
+            station.location.latitude >= 50.75 &&
+            station.location.latitude <= 51.10 &&
+            station.location.longitude >= 6.60 &&
+            station.location.longitude <= 7.35
+        ) {
+            stations.push({
+                lat: station.location.latitude,
+                lon: station.location.longitude,
+                name: station.name,
+            });
+        }
+    }
+    return stations;
 }
 
 function toRadians(degrees) {
