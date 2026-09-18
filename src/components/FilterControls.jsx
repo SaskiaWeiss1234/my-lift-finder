@@ -21,7 +21,7 @@ export default function FilterControls({ setFilter, filter }) {
 
        {isOpen &&
         (<fieldset className="absolute top-12 left-0 z-[1000] bg-surface rounded-lg p-4 w-52 shadow-lg ">
-            <legend className="text-sm font-semibold text-white px-1 bg-surface rounded border border-border-subtle mt-3 ">Apply a filter:</legend>
+            <legend className="text-sm font-semibold text-foreground px-1 bg-surface rounded border border-border-subtle mt-3 ">Apply a filter:</legend>
             <div className="flex flex-col gap-2 mt-1">
                 <div className="flex items-center gap-2">
                     <input type="checkbox" id="active" name="active" checked={filter.includes("ACTIVE")} onChange={() => toggleFilter("ACTIVE")} className="accent-primary" />
