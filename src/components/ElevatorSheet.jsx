@@ -65,9 +65,10 @@ return (
                     <div className="fixed bottom-0 left-1/2 -translate-x-1/2 z-[2000] bg-surface rounded-t-2xl shadow-lg p-4 max-h-[70vh] overflow-y-auto w-full max-w-[min(90vw, 900px)]">
                         <div className="flex justify-between items-center mb-2">
                         <h3 className="text-lg font-bold text-foreground">{elevator.stationName}</h3>
-                        <button onClick={onClose} className="text-muted text-xl leading-none">&times;</button>
+                        <button onClick={onClose} className="text-foreground text-xl leading-none" aria-label="Close">&times;</button>
                         </div>
-                        <p className="text-foreground">Official status: {elevator.state}</p>
+                        <p className="text-foreground text-sm">{elevator.description}</p>
+                        <p className="text-foreground" aria-label="Official Status of selected Elevator" >Official status: {elevator.state}</p>
                         
                         {reports.length > 0 && (
                         <div className="mt-2 border-t border-border-subtle pt-2">
