@@ -62,7 +62,7 @@ const { data: reports = [], mutate } = useSWR(`/api/reports?elevatorID=${elevato
         }
     }
 return (
-                    <div className="fixed bottom-2 left-1/2 -translate-x-1/2 z-[2000] bg-surface rounded-t-2xl shadow-lg p-4 max-h-[70vh] overflow-y-auto w-full max-w-[min(90vw, 900px)]">
+                    <div className="fixed bottom-0 left-1/2 -translate-x-1/2 z-[2000] bg-surface rounded-t-2xl shadow-lg p-4 max-h-[70vh] overflow-y-auto w-full max-w-[min(90vw, 900px)]">
                         <div className="flex justify-between items-center mb-2">
                         <h3 className="text-lg font-bold text-foreground">{elevator.stationName}</h3>
                         <button onClick={onClose} className="text-muted text-xl leading-none">&times;</button>

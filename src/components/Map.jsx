@@ -33,7 +33,7 @@ export default function Map({ elevators, filter, searchTerm, onSelectElevator, s
                 <Marker
                 key={elevator.elevatorID}
                 position={[elevator.latitude, elevator.longitude]}
-                icon={createIcon(elevator.state)}
+                icon={createIcon(elevator.state, selectedElevator?.elevatorID === elevator.elevatorID)}
                 eventHandlers={{ 
                     click: () => {
                     if (selectedElevator?.elevatorID === elevator.elevatorID) {
