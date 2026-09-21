@@ -6,6 +6,7 @@ import FilterControls from "./FilterControls";
 import SearchBar from "./SearchBar";
 import AuthControl from "./AuthControl";
 import ElevatorSheet from "./ElevatorSheet";
+import ColorblindToggle from "./ColorblindToggle";
 
 const Map = dynamic(() => import("@/components/Map"), { 
   ssr: false,
@@ -36,6 +37,7 @@ export default function MapWrapper({ elevators }) {
     <FilterControls filter={filter} setFilter={setFilter} />
     <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
     <AuthControl />
+    <ColorblindToggle />
     </div>
     <Map 
     elevators={elevators} 

@@ -17,7 +17,18 @@ export default function RootLayout({ children }) {
     <html
       lang="en"
       className={`${atkinson.variable}  h-full antialiased`}
+      suppressHydrationWarning
     >
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{
+  if (localStorage.getItem('myliftfinder:colorblind-mode') === 'true')
+    document.documentElement.setAttribute('data-colorblind','true');
+}catch(e){}})()`,
+          }}
+        />
+      </head>
       <body className="h-full">
         <AuthProvider>{children}</AuthProvider>
           </body>
