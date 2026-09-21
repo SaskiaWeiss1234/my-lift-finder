@@ -47,7 +47,7 @@ return (
                      {showPassword ? "Hide" : "Show"}
                      </button>
                      </div>
-                            {success && <p className="text-green-600 text-sm">{success}</p>}
+                            {success && <p className="text-success text-sm">{success}</p>}
                             {error && <p className="text-alert text-sm">{error}</p>}
                             <button type="submit" className="bg-primary text-white p-2 rounded hover:opacity-90 transition-opacity">Create new Password</button>
                         </form>

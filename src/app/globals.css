@@ -16,6 +16,11 @@
 
   /* -- Signal Colors -- */
     --color-alert: #dc2626;
+
+  /* -- Marker / Status Colors (Light) -- */
+  --marker-active: #16a34a;
+  --marker-inactive: #dc2626;
+  --marker-unknown: #6b7280;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -32,6 +37,25 @@
     --color-primary-500: #3c83f6;
     --color-secondary-500: #523cf6;
     --color-accent-500: #3ce0f6;
+
+    /* -- Marker / Status Colors (Dark) -- */
+    --marker-active: #22c55e;
+    --marker-inactive: #ef4444;
+    --marker-unknown: #9ca3af;
+  }
+}
+
+/* -- Colorblind-safe mode (manual toggle, independent of light/dark) -- */
+html[data-colorblind="true"] {
+  --marker-active: #0072B2;
+  --marker-inactive: #E69F00;
+  --color-alert: var(--marker-inactive);
+}
+
+@media (prefers-color-scheme: dark) {
+  html[data-colorblind="true"] {
+    --marker-active: #56B4E9;
+    --marker-inactive: #E69F00;
   }
 }
 
@@ -48,6 +72,12 @@
   --color-secondary: var(--color-secondary-500);
   --color-accent: var(--color-accent-500);
   --color-alert: var(--color-alert);
+  --color-success: var(--marker-active);
+
+  /* -- Marker / Status Colors -- */
+  --color-marker-active: var(--marker-active);
+  --color-marker-inactive: var(--marker-inactive);
+  --color-marker-unknown: var(--marker-unknown);
 
   /* -- Fonts -- */
   --font-sans: var(--font-atkinson);

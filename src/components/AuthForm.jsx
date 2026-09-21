@@ -89,7 +89,7 @@ export default function AuthForm({switchMode, setIsOpen, mode, initialEmail }) {
                      </button>
                      </div>
                     <button type="submit" className="bg-primary text-white p-2 rounded hover:opacity-90 transition-opacity">Sign In </button>
-                    {success && <p className="text-green-600 text-sm">{success}</p>}
+                    {success && <p className="text-success text-sm">{success}</p>}
                         {error && <p className="text-alert text-sm">{error}</p>}
                     <p className="text-sm text-center text-muted">
                          No account?{" "}
@@ -143,7 +143,7 @@ export default function AuthForm({switchMode, setIsOpen, mode, initialEmail }) {
                      {showPassword ? "Hide" : "Show"}
                      </button>
                      </div>
-                     {success && <p className="text-green-600 text-sm">{success}</p>}
+                     {success && <p className="text-success text-sm">{success}</p>}
                      {error && <p className="text-alert text-sm">{error}</p>}
                      <p className="text-sm text-center text-muted">
                          Already have an account?{" "}
@@ -165,7 +165,7 @@ export default function AuthForm({switchMode, setIsOpen, mode, initialEmail }) {
                             placeholder="Email" 
                             className="border border-border-subtle p-2 rounded text-foreground bg-surface w-full pr-14 placeholder:text-muted" 
                             aria-label="Email" />
-                            {success && <p className="text-green-600 text-sm">{success}</p>}
+                            {success && <p className="text-success text-sm">{success}</p>}
                      {error && <p className="text-alert text-sm">{error}</p>}
                         <button type="submit" className="bg-primary text-white p-2 rounded hover:opacity-90 transition-opacity">Send Reset Link</button>
                         </form>
