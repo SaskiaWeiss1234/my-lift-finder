@@ -11,8 +11,13 @@ export default function AuthForm({switchMode, setIsOpen, mode, initialEmail }) {
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
     const [loading, setIsLoading] = useState(false);
-   
-     
+
+    function handleSwitchMode(newMode) {
+        setError("");
+        setSuccess("");
+        switchMode(newMode);
+    }
+
     async function handleSubmit(e) {
             e.preventDefault();
             setError("")
@@ -40,7 +45,7 @@ export default function AuthForm({switchMode, setIsOpen, mode, initialEmail }) {
         } else if (!result.ok) {
             setError("Something went wrong");
         } else {
-            switchMode("Login");
+            handleSwitchMode("Login");
             setSuccess("Account created! Please verify your email trough the link we sent you. ");
         }
     }
@@ -93,14 +98,14 @@ export default function AuthForm({switchMode, setIsOpen, mode, initialEmail }) {
                         {error && <p className="text-alert text-sm">{error}</p>}
                     <p className="text-sm text-center text-muted">
                          No account?{" "}
-                        <button type="button" onClick={() => switchMode("Register")}
+                        <button type="button" onClick={() => handleSwitchMode("Register")}
                         className="underline text-primary">
                             Register 
                         </button>
                     </p>
                     <p className="text-sm text-center text-muted">
                          Forgot Password?{" "}
-                        <button type="button" onClick={() => switchMode("Forgot Password")}
+                        <button type="button" onClick={() => handleSwitchMode("Forgot Password")}
                         className="underline text-primary">
                             Reset Password 
                         </button>
@@ -147,7 +152,7 @@ export default function AuthForm({switchMode, setIsOpen, mode, initialEmail }) {
                      {error && <p className="text-alert text-sm">{error}</p>}
                      <p className="text-sm text-center text-muted">
                          Already have an account?{" "}
-                        <button type="button" onClick={() => switchMode("Login")} className="underline text-primary">
+                        <button type="button" onClick={() => handleSwitchMode("Login")} className="underline text-primary">
                             Sign In
                         </button>
                         </p>
