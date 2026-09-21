@@ -6,8 +6,8 @@ export default function SearchBar({ searchTerm, setSearchTerm}) {
         <label htmlFor="elevator-search" className="sr-only">
             Search for Stations
         </label>
-        <input 
-        id="station-search"
+        <input
+        id="elevator-search"
         type="search"
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
@@ -16,12 +16,13 @@ export default function SearchBar({ searchTerm, setSearchTerm}) {
         className="rounded p-3 border-border-subtle bg-surface/70 text-foreground placeholder:text-muted w-full"
         />
         {searchTerm && (
-            <button 
+            <button
             type="button"
             onClick={(e) => setSearchTerm("")}
+            aria-label="Clear search"
             className="absolute right-2 top-1/2 -translate-y-1/2"
             >
-                <svg width="24" height="24" viewBox="0 0 0.9 0.9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg width="24" height="24" viewBox="0 0 0.9 0.9" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                 <path d="m.3.3.3.3m0-.3L.3.6" stroke="var(--color-secondary-500)" strokeWidth=".075" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
             </button>

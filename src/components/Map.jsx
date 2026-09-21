@@ -17,13 +17,14 @@ export default function Map({ elevators, filter, searchTerm, onSelectElevator, s
 
    
     return (
-        <MapContainer 
+        <div role="region" aria-label="Map of elevator locations and status" className="h-full w-full">
+        <MapContainer
         zoomControl={false}
         center={[50.942519, 6.958543]}
         zoom={13}
         className="h-full w-full rounded-xl"
-        maxBounds={[[50.83, 6.70], [51.02, 7.24],   
-  ]}     
+        maxBounds={[[50.83, 6.70], [51.02, 7.24],
+  ]}
         >
         <TileLayer
         attribution='&copy; OpenStreetMap contributors'
@@ -44,7 +45,8 @@ export default function Map({ elevators, filter, searchTerm, onSelectElevator, s
                 },
             }}
             />
-        ))}    
+        ))}
         </MapContainer>
+        </div>
          );
 }

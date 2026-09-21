@@ -18,7 +18,7 @@ export default function AuthForm({switchMode, setIsOpen, mode, initialEmail }) {
         switchMode(newMode);
     }
 
-    async function handleSubmit(e) {
+    async function handleLogin(e) {
             e.preventDefault();
             setError("")
             const result = await signIn("credentials", { email, password, redirect: false});
@@ -67,7 +67,7 @@ export default function AuthForm({switchMode, setIsOpen, mode, initialEmail }) {
    return (
     <>
                {mode === "Login" && (
-                <form onSubmit={handleSubmit} className="flex flex-col gap-2">
+                <form onSubmit={handleLogin} className="flex flex-col gap-2">
                     <h1 className="text-lg font-bold text-foreground">Login</h1>
                     <input 
                     value={email} 
@@ -77,18 +77,19 @@ export default function AuthForm({switchMode, setIsOpen, mode, initialEmail }) {
                     className="border border-border-subtle p-2 rounded text-foreground bg-surface w-full pr-14 placeholder:text-muted"
                     aria-label="Email" />
                     <div className="relative">
-                     <input 
+                     <input
                      value={password}
                      onChange={(e) => setPassword(e.target.value)}
-                    type={showPassword ? "text" : "password"} 
-                    placeholder="Password" 
+                    type={showPassword ? "text" : "password"}
+                    placeholder="Password"
                     className="border border-border-subtle p-2 rounded text-foreground bg-surface w-full pr-14 placeholder:text-muted"
-                    aria-label={showPassword ? "Hide Password" : "Show Password"} 
+                    aria-label="Password"
                     />
                     <button
                         type="button"
                  onClick={() => setShowPassword(!showPassword)}
                      className="absolute right-2 top-1/2 -translate-y-1/2 text-muted text-sm"
+                        aria-label={showPassword ? "Hide password" : "Show password"}
                         >
                      {showPassword ? "Hide" : "Show"}
                      </button>
@@ -144,6 +145,7 @@ export default function AuthForm({switchMode, setIsOpen, mode, initialEmail }) {
                         type="button"
                  onClick={() => setShowPassword(!showPassword)}
                      className="absolute right-2 top-1/2 -translate-y-1/2 text-muted text-sm"
+                        aria-label={showPassword ? "Hide password" : "Show password"}
                         >
                      {showPassword ? "Hide" : "Show"}
                      </button>
