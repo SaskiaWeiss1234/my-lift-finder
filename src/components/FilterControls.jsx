@@ -15,7 +15,7 @@ export default function FilterControls({ setFilter, filter }) {
     return (
 <div className="relative">
     <button onClick={() => setIsOpen(!isOpen)} className="flex items-center gap-2" aria-label="Toggle Filters">
-         <svg width="28px" height="28px" viewBox="0 0 1.2 1.2" fill="none" xmlns="http://www.w3.org/2000/svg">
+         <svg width="28px" height="28px" viewBox="0 0 1.2 1.2" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
          <path d="M0.45 0.25a0.05 0.05 0 1 0 0 0.1 0.05 0.05 0 0 0 0 -0.1M0.308 0.25a0.15 0.15 0 0 1 0.283 0H0.95a0.05 0.05 0 1 1 0 0.1h-0.359a0.15 0.15 0 0 1 -0.283 0H0.25a0.05 0.05 0 0 1 0 -0.1zM0.75 0.55a0.05 0.05 0 1 0 0 0.1 0.05 0.05 0 0 0 0 -0.1m-0.142 0a0.15 0.15 0 0 1 0.283 0H0.95a0.05 0.05 0 1 1 0 0.1h-0.058a0.15 0.15 0 0 1 -0.283 0H0.25a0.05 0.05 0 1 1 0 -0.1zM0.45 0.85a0.05 0.05 0 1 0 0 0.1 0.05 0.05 0 0 0 0 -0.1m-0.142 0a0.15 0.15 0 0 1 0.283 0H0.95a0.05 0.05 0 1 1 0 0.1h-0.359a0.15 0.15 0 0 1 -0.283 0H0.25a0.05 0.05 0 1 1 0 -0.1z" fill="white"/></svg> 
     </button>
 
