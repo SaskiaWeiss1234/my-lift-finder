@@ -11,9 +11,14 @@ export default function AuthForm({switchMode, setIsOpen, mode, initialEmail }) {
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
     const [loading, setIsLoading] = useState(false);
-   
-     
-    async function handleSubmit(e) {
+
+    function handleSwitchMode(newMode) {
+        setError("");
+        setSuccess("");
+        switchMode(newMode);
+    }
+
+    async function handleLogin(e) {
             e.preventDefault();
             setError("")
             const result = await signIn("credentials", { email, password, redirect: false});
@@ -40,7 +45,7 @@ export default function AuthForm({switchMode, setIsOpen, mode, initialEmail }) {
         } else if (!result.ok) {
             setError("Something went wrong");
         } else {
-            switchMode("Login");
+            handleSwitchMode("Login");
             setSuccess("Account created! Please verify your email trough the link we sent you. ");
         }
     }
@@ -62,7 +67,7 @@ export default function AuthForm({switchMode, setIsOpen, mode, initialEmail }) {
    return (
     <>
                {mode === "Login" && (
-                <form onSubmit={handleSubmit} className="flex flex-col gap-2">
+                <form onSubmit={handleLogin} className="flex flex-col gap-2">
                     <h1 className="text-lg font-bold text-foreground">Login</h1>
                     <input 
                     value={email} 
@@ -72,18 +77,19 @@ export default function AuthForm({switchMode, setIsOpen, mode, initialEmail }) {
                     className="border border-border-subtle p-2 rounded text-foreground bg-surface w-full pr-14 placeholder:text-muted"
                     aria-label="Email" />
                     <div className="relative">
-                     <input 
+                     <input
                      value={password}
                      onChange={(e) => setPassword(e.target.value)}
-                    type={showPassword ? "text" : "password"} 
-                    placeholder="Password" 
+                    type={showPassword ? "text" : "password"}
+                    placeholder="Password"
                     className="border border-border-subtle p-2 rounded text-foreground bg-surface w-full pr-14 placeholder:text-muted"
-                    aria-label={showPassword ? "Hide Password" : "Show Password"} 
+                    aria-label="Password"
                     />
                     <button
                         type="button"
                  onClick={() => setShowPassword(!showPassword)}
                      className="absolute right-2 top-1/2 -translate-y-1/2 text-muted text-sm"
+                        aria-label={showPassword ? "Hide password" : "Show password"}
                         >
                      {showPassword ? "Hide" : "Show"}
                      </button>
@@ -93,14 +99,14 @@ export default function AuthForm({switchMode, setIsOpen, mode, initialEmail }) {
                         {error && <p className="text-alert text-sm">{error}</p>}
                     <p className="text-sm text-center text-muted">
                          No account?{" "}
-                        <button type="button" onClick={() => switchMode("Register")}
+                        <button type="button" onClick={() => handleSwitchMode("Register")}
                         className="underline text-primary">
                             Register 
                         </button>
                     </p>
                     <p className="text-sm text-center text-muted">
                          Forgot Password?{" "}
-                        <button type="button" onClick={() => switchMode("Forgot Password")}
+                        <button type="button" onClick={() => handleSwitchMode("Forgot Password")}
                         className="underline text-primary">
                             Reset Password 
                         </button>
@@ -139,6 +145,7 @@ export default function AuthForm({switchMode, setIsOpen, mode, initialEmail }) {
                         type="button"
                  onClick={() => setShowPassword(!showPassword)}
                      className="absolute right-2 top-1/2 -translate-y-1/2 text-muted text-sm"
+                        aria-label={showPassword ? "Hide password" : "Show password"}
                         >
                      {showPassword ? "Hide" : "Show"}
                      </button>
@@ -147,7 +154,7 @@ export default function AuthForm({switchMode, setIsOpen, mode, initialEmail }) {
                      {error && <p className="text-alert text-sm">{error}</p>}
                      <p className="text-sm text-center text-muted">
                          Already have an account?{" "}
-                        <button type="button" onClick={() => switchMode("Login")} className="underline text-primary">
+                        <button type="button" onClick={() => handleSwitchMode("Login")} className="underline text-primary">
                             Sign In
                         </button>
                         </p>

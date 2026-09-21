@@ -81,6 +81,7 @@ return (
                                     <button
                                     type="button"
                                     onClick={() => handleDelete(report._id)}
+                                    aria-label="Delete your report"
                                     className="text-alert text-xs underline mt-1 mr-2">
                                         Delete
                                     </button>
@@ -96,6 +97,7 @@ return (
                                 setReportComment(report.comment || "");
                                 setIsReporting(true);
                                 }}
+                                aria-label="Edit your report"
                                 className="text-primary text-xs underline mt-1 "
                             >Edit</button>
                             )}
@@ -111,6 +113,7 @@ return (
                          {isReporting && (
              <form onSubmit={handleReport} className="flex flex-col gap-2">
                 <select value={reportState} onChange={(e) => setReportState(e.target.value)}
+                aria-label="Elevator status"
                 className="border border-border-subtle p-2 rounded bg-surface text-foreground"
                 >
                     <option value="ACTIVE">Working</option>
@@ -120,6 +123,7 @@ return (
                 value={reportComment}
                 onChange={(e) => setReportComment(e.target.value)}
                 placeholder="Optional comment (max 150 characters)"
+                aria-label="Comment (optional, max 150 characters)"
                 maxLength={150}
                 className="border border-border-subtle p-2 rounded text-sm resize-none bg-surface text-foreground placeholder:text-muted"
                 rows={3}
